@@ -13,17 +13,20 @@ var request = require('request');
 var _ = require('underscore');
 var flash = require('connect-flash');
 var soundfeedApi = require('./api/soundfeed-api');
-var memcache = require('memcache');
+
+
+var memjs = require('memjs');
 
 console.log('Setting up Memcached');
-var memcacheClient = new memcache.Client(process.env.MEMCACHED_PORT,process.env.MEMCACHED_HOST);
-memcacheClient.on('connect', function() {
-	console.log('Memcached Connected');
-});
-memcacheClient.on('error', function(e) {
-	console.log('Could not connect to Memcached: ' + e);
-});
-memcacheClient.connect();
+var memcachedOpts = JSON.parse(process.env.MEMCACHED);
+var memcacheClient = memjs.Client.create(memcachedOpts.host + ':' +memcachedOpts.port);
+// memcacheClient.on('connect', function() {
+// 	console.log('Memcached Connected');
+// });
+// memcacheClient.on('error', function(e) {
+// 	console.log('Could not connect to Memcached: ' + e);
+// });
+// memcacheClient.connect();
 
 app.use(cookieParser('secret'));
 app.use(session({cookie: { maxAge: 60000 }}));
@@ -82,8 +85,6 @@ app.get('/feed/:user/:code', function(req, res) {
 							trackUrl: item['stream_url'].replace('https','http') + '?client_id=' + process.env.SC_CLIENT_ID
 						} 
 					});
-
-					console.log(userData);
 
 					res.locals.data = {
 						channelUrl: userData['permalink_url'].replace('https','http'),
