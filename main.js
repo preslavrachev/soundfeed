@@ -13,13 +13,23 @@ var request = require('request');
 var _ = require('underscore');
 var flash = require('connect-flash');
 var soundfeedApi = require('./api/soundfeed-api');
+var nodeConfig = require('cloud-env');
 
 
 var memjs = require('memjs');
 
 console.log('Setting up Memcached');
 var memcachedOpts = JSON.parse(process.env.MEMCACHED);
-var memcacheClient = memjs.Client.create(memcachedOpts.host + ':' +memcachedOpts.port);
+if (memcachedOpts.username && memcachedOpts.password) {
+	var memcacheClient = memjs.Client.create(memcachedOpts.host + ':' +memcachedOpts.port, {
+		username: memcachedOpts.username,
+		password: memcachedOpts.password
+	});
+}
+else {
+	var memcacheClient = memjs.Client.create(memcachedOpts.host + ':' +memcachedOpts.port);
+}
+
 // memcacheClient.on('connect', function() {
 // 	console.log('Memcached Connected');
 // });
@@ -105,4 +115,4 @@ app.get('/feed/:user/:code', function(req, res) {
 	
 })
 
-app.listen(3000);
+app.listen(nodeConfig.PORT, nodeConfig.IP);

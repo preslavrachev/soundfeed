@@ -1,3 +1,4 @@
 .env
 public/css/**.css
 node_modules/*
+npm-debug.log
