@@ -17,9 +17,7 @@
 		]]>
 	</description>
 
-	<itunes:keywords>
-	TWiT, Android OS, Google, smartphone, smart phone, apps
-	</itunes:keywords>
+	<itunes:keywords></itunes:keywords>
 
 	<link>{{data.channelUrl}}</link>
 
