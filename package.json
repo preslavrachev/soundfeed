@@ -17,7 +17,8 @@
     "crypto-js": "~3.1.4",
     "memcache": "~0.3.0",
     "memjs": "~0.8.5",
-    "cloud-env": "~0.1.0"
+    "cloud-env": "~0.1.0",
+    "dateformat": "~1.0.11"
   },
   "devDependencies": {
     "run-sequence": "^0.3.6",

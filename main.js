@@ -14,6 +14,7 @@ var _ = require('underscore');
 var flash = require('connect-flash');
 var soundfeedApi = require('./api/soundfeed-api');
 var nodeConfig = require('cloud-env');
+var dateformat = require('dateformat');
 
 
 var memjs = require('memjs');
@@ -92,11 +93,14 @@ app.get('/feed/:user/:code', function(req, res) {
 							trackDescription: item['description'],
 							trackPageUrl: item['permalink_url'],
 							trackSize: item['original_content_size'],
-							trackUrl: item['stream_url'].replace('https','http') + '?client_id=' + process.env.SC_CLIENT_ID
+							trackUrl: item['stream_url'].replace('https','http') + '?client_id=' + process.env.SC_CLIENT_ID,
+							trackPubDate: dateformat(Date.parse(item['created_at']), 'ddd, dd mmm yyyy HH:MM:ss Z')
 						} 
 					});
 
 					res.locals.data = {
+						channelName: userData['full_name'] || req.params.user,
+						channelDescription: userData['description'],
 						channelUrl: userData['permalink_url'].replace('https','http'),
 						coverUrl: userData['avatar_url'].replace('https','http'),
 						items: items

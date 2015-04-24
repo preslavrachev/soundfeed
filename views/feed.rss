@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
 <channel>
-	<title>TEST</title>
-	<pubDate>Tue, 7 Apr 2015 23:58:01 -0700</pubDate>
+	<title>{{data.channelName}}'s tracks</title>
+	<pubDate>{{data.items.[0].trackPubDate}}</pubDate>
 	<itunes:image href="{{data.coverUrl}}" />
 
-	<itunes:summary>All About Everything is a show about everything. Each week we dive into any subject known to man and talk about it as much as we can. Look for our podcast in the Podcasts app or in the iTunes Store</itunes:summary>
+	<itunes:summary>
+		<![CDATA[
+			{{data.channelDescription}}
+		]]>
+	</itunes:summary>
 
-	<description>All About Everything is a show about everything. Each week we dive into any subject known to man and talk about it as much as we can. Look for our podcast in the Podcasts app or in the iTunes Store</description>
+	<description>
+		<![CDATA[
+			{{data.channelDescription}}
+		]]>
+	</description>
 
 	<itunes:keywords>
 	TWiT, Android OS, Google, smartphone, smart phone, apps
@@ -26,7 +34,7 @@
 		<link>
 		{{trackUrl}}
 		</link>
-		<pubDate>Mon, 6 Apr 2015 23:58:01 -0700</pubDate>
+		<pubDate>{{trackPubDate}}</pubDate>
 		<enclosure url="{{trackUrl}}" length="{{trackSize}}" type="audio/mpeg"/>
 		<!-- <media:content url="{{trackUrl}}" fileSize="{{trackSize}}" type="audio/mpeg" medium="audio">
 		</media:content> -->
