@@ -102,7 +102,7 @@ app.get('/feed/:user/:code', function(req, res) {
 						channelName: userData['full_name'] || req.params.user,
 						channelDescription: userData['description'],
 						channelUrl: userData['permalink_url'].replace('https','http'),
-						coverUrl: userData['avatar_url'].replace('https','http'),
+						coverUrl: userData['avatar_url'].replace('https','http').replace('large','t300x300'),
 						items: items
 					}
 
